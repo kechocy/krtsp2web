@@ -1,0 +1,13 @@
+{
+  "name": "krtsp2web",
+  "version": "1.0.0",
+  "bin": "main.js",
+  "scripts": {
+    "pkg": "pkg .  --out-path dist/",
+    "dev": "node main.js"
+  },
+  "pkg":{
+    "assets": ["lib/**/*"],
+    "targets":["node18-win-x64"]
+  }
+}
