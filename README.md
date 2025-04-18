@@ -1,7 +1,7 @@
 
-本项目是 [rtsp2web](https://github.com/Neveryu/rtsp2web) 去掉水印后的版本
+本项目是 [rtsp2web](https://github.com/Neveryu/rtsp2web) 去掉水印后的版本，并重构说明文档
 
-**本项目依赖 [ffmpeg](https://ffmpeg.org/download.html#build-windows)** 
+**本项目依赖 [ffmpeg](https://ffmpeg.org/download.html#build-windows)** ，请确保机器已安装 ffmpeg
 
 ## 介绍
 
