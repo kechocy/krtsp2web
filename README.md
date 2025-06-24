@@ -201,3 +201,51 @@ npm run pkg
 > Error! AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
 
 自动下载文件失败，可以手动去[下载](https://github.com/vercel/pkg-fetch/releases)，并放入`C:\Users\{{ username }}\.pkg-cache\{{ tag }}\{{ fetched-name }}`，例如：`C:\Users\admin\.pkg-cache\v3.4\fetched-v18.5.0-win-x64`
+
+## 附录
+
+其它类似项目：
+[rtsp-relay](https://github.com/k-yle/rtsp-relay)
+
+> 该项目不需要安装 ffmpeg
+
+安装：
+```bash
+npm install -S rtsp-relay express
+```
+
+使用示例：
+
+```javascript
+const express = require('express');
+const app = express();
+
+const { proxy, scriptUrl } = require('rtsp-relay')(app);
+
+const sameConfig = {
+  transport: 'tcp',
+  additionalFlags: ['-q', '1'],
+  useNativeFFmpeg: true, 
+  verbose: true
+};
+
+const urls = [
+  { url: 'rtsp://admin:admin@10.12.17.133:554/Streaming/Channels/101' },
+  { url: 'rtsp://admin:admin@10.12.17.131:554/h264/ch1/main/av_stream' }
+];
+
+const configs = urls.map(item => {
+  return {...sameConfig, ...item };  // 合并对象
+})
+
+
+// the endpoint our RTSP uses
+configs.forEach(config => {
+  const url = config.url;
+  const ipMatch = url.match(/@(\d{1,3}(?:\.\d{1,3}){3}):/); // 提取ip
+  const ip = ipMatch ? ipMatch[1] : '';
+  app.ws('/api/stream/' + ip, proxy(config));
+})
+
+app.listen(2000);
+```
